@@ -41,4 +41,30 @@ public class Directory {
     public List<Object> getContents() {
         return contents;
     }
+    public void addFile(String parentDirName, String fileName, long fileSize) {
+        Directory parentDir = findDirectory(parentDirName);
+        if (parentDir == null) {
+            throw new IllegalArgumentException("Parent directory not found");
+        }
+        File newFile = new File();
+        newFile.setName(fileName);
+        newFile.setSize(fileSize);
+        newFile.setCreationDate(new Date());
+        parentDir.addContent(newFile);
+    }
+
+    private Directory findDirectory(String dirName) {
+        if (this.name.equals(dirName)) {
+            return this;
+        }
+        for (Object content : contents) {
+            if (content instanceof Directory) {
+                Directory found = ((Directory) content).findDirectory(dirName);
+                if (found != null) {
+                    return found;
+                }
+            }
+        }
+        return null;
+    }
 }
