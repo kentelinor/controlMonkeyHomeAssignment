@@ -5,7 +5,8 @@ public class Main {
         root.setName("root");
         root.setCreationDate(new Date());
 
-        root.addFile("root", "file1.txt", 100);
+        root.addDir("root", "subdir1");
+        root.addFile("subdir1", "file1.txt", 100);
 
         for (Object content : root.getContents()) {
             if (content instanceof File) {

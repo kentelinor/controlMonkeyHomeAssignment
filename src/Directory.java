@@ -53,6 +53,17 @@ public class Directory {
         parentDir.addContent(newFile);
     }
 
+    public void addDir(String parentDirName, String dirName) {
+        Directory parentDir = findDirectory(parentDirName);
+        if (parentDir == null) {
+            throw new IllegalArgumentException("Parent directory not found");
+        }
+        Directory newDir = new Directory();
+        newDir.setName(dirName);
+        newDir.setCreationDate(new Date());
+        parentDir.addContent(newDir);
+    }
+
     private Directory findDirectory(String dirName) {
         if (this.name.equals(dirName)) {
             return this;
