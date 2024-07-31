@@ -78,4 +78,20 @@ public class Directory {
         }
         return null;
     }
+public long getFileSize(String fileName) {
+    for (Object content : contents) {
+        if (content instanceof File) {
+            File file = (File) content;
+            if (file.getName().equals(fileName)) {
+                return file.getSize();
+            }
+        } else if (content instanceof Directory) {
+            Directory dir = (Directory) content;
+            long size = dir.getFileSize(fileName);
+            if (size != -1) {
+                return size;
+            }
+        }
+    }
+    return -1; // File not found
 }
