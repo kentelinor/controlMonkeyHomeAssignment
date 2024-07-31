@@ -140,6 +140,27 @@ private void printIndent(int level) {
         System.out.print("  ");
     }
 }
+}
+
+private void showFileSystemHelper(Directory dir, int level) {
+    printIndent(level);
+    System.out.println("Directory: " + dir.getName() + ", Created on: " + dir.getCreationDate());
+    for (Object content : dir.getContents()) {
+        if (content instanceof File) {
+            File file = (File) content;
+            printIndent(level + 1);
+            System.out.println("File: " + file.getName() + ", Size: " + file.getSize() + ", Created on: " + file.getCreationDate());
+        } else if (content instanceof Directory) {
+            showFileSystemHelper((Directory) content, level + 1);
+        }
+    }
+}
+
+private void printIndent(int level) {
+    for (int i = 0; i < level; i++) {
+        System.out.print("  ");
+    }
+}
 public String getBiggestFile() {
     String biggestFileName = null;
     long maxSize = -1;
