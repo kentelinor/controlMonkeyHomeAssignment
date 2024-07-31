@@ -94,6 +94,7 @@ public long getFileSize(String fileName) {
         }
     }
     return -1; // File not found
+}
 public boolean delete(String name) {
     for (int i = 0; i < contents.size(); i++) {
         Object content = contents.get(i);
@@ -115,7 +116,49 @@ public boolean delete(String name) {
     }
     return false; // File or directory not found
 }
+    for (int i = 0; i < contents.size(); i++) {
+        Object content = contents.get(i);
+        if (content instanceof File) {
+            File file = (File) content;
+            if (file.getName().equals(name)) {
+                contents.remove(i);
+                return true;
+            }
+        } else if (content instanceof Directory) {
+            Directory dir = (Directory) content;
+            if (dir.getName().equals(name)) {
+                contents.remove(i);
+                return true;
+            } else if (dir.delete(name)) {
+                return true;
+            }
+        }
+    }
+    return false; // File or directory not found
+}
 public void showFileSystem() {
+    showFileSystemHelper(this, 0);
+}
+
+private void showFileSystemHelper(Directory dir, int level) {
+    printIndent(level);
+    System.out.println("Directory: " + dir.getName() + ", Created on: " + dir.getCreationDate());
+    for (Object content : dir.getContents()) {
+        if (content instanceof File) {
+            File file = (File) content;
+            printIndent(level + 1);
+            System.out.println("File: " + file.getName() + ", Size: " + file.getSize() + ", Created on: " + file.getCreationDate());
+        } else if (content instanceof Directory) {
+            showFileSystemHelper((Directory) content, level + 1);
+        }
+    }
+}
+
+private void printIndent(int level) {
+    for (int i = 0; i < level; i++) {
+        System.out.print("  ");
+    }
+}
     showFileSystemHelper(this, 0);
 }
 
