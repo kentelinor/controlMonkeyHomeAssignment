@@ -95,3 +95,4 @@ public long getFileSize(String fileName) {
     }
     return -1; // File not found
 }
+}
