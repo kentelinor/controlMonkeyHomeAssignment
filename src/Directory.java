@@ -94,6 +94,7 @@ public long getFileSize(String fileName) {
         }
     }
     return -1; // File not found
+}
 public String getBiggestFile() {
     String biggestFileName = null;
     long maxSize = -1;
