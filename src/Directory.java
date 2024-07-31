@@ -94,5 +94,27 @@ public long getFileSize(String fileName) {
         }
     }
     return -1; // File not found
+public String getBiggestFile() {
+    String biggestFileName = null;
+    long maxSize = -1;
+
+    for (Object content : contents) {
+        if (content instanceof File) {
+            File file = (File) content;
+            if (file.getSize() > maxSize) {
+                maxSize = file.getSize();
+                biggestFileName = file.getName();
+            }
+        } else if (content instanceof Directory) {
+            Directory dir = (Directory) content;
+            String biggestInDir = dir.getBiggestFile();
+            long sizeInDir = dir.getFileSize(biggestInDir);
+            if (sizeInDir > maxSize) {
+                maxSize = sizeInDir;
+                biggestFileName = biggestInDir;
+            }
+        }
+    }
+    return biggestFileName;
 }
 }
