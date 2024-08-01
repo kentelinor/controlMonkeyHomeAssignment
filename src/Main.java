@@ -2,7 +2,6 @@ import java.util.Date;
 
 public class Main {
     public static void main(String[] args) {
-        System.out.println("Hello, World!");
         Directory root = new Directory();
         root.setName("root");
         root.setCreationDate(new Date());
@@ -33,7 +32,7 @@ public class Main {
         System.out.println("file1.txt deleted: " + isDeleted);
 
         // Show file system structure
-        root.showFileSystemHelper(root, 0);
+        root.showFileSystem();
 
         // Get the biggest file
         String biggestFile = root.getBiggestFile();
