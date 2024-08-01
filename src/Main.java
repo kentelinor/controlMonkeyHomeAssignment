@@ -3,18 +3,18 @@ import java.util.Date;
 public class Main {
     public static void main(String[] args) {
         Directory root = new Directory();
-        System.out.println("Setting name of root directory");
+        System.out.println("******** Setting name of root directory");
         root.setName("root");
-        System.out.println("Setting creation date of root directory");
+        System.out.println("******** Setting creation date of root directory");
         root.setCreationDate(new Date());
 
-        System.out.println("Adding subdir1 to root directory");
+        System.out.println("******** Adding subdir1 to root directory");
         root.addDir("root", "subdir1");
-        System.out.println("Adding file1.txt to subdir1");
+        System.out.println("******** Adding file1.txt to subdir1");
         root.addFile("subdir1", "file1.txt", 100);
 
         // List contents of the root directory
-        System.out.println("Listing contents of the root directory");
+        System.out.println("******** Listing contents of the root directory");
         for (Object content : root.getContents()) {
             if (content instanceof Directory) {
                 Directory dir = (Directory) content;
@@ -29,21 +29,21 @@ public class Main {
         }
 
         // Get file size
-        System.out.println("Getting size of file1.txt");
+        System.out.println("******** Getting size of file1.txt");
         long fileSize = root.getFileSize("file1.txt");
         System.out.println("Size of file1.txt: " + fileSize);
 
         // Delete a file
-        System.out.println("Deleting file1.txt");
+        System.out.println("******** Deleting file1.txt");
         boolean isDeleted = root.delete("file1.txt");
         System.out.println("file1.txt deleted: " + isDeleted);
 
         // Show file system structure
-        System.out.println("Showing file system structure");
+        System.out.println("******** Showing file system structure");
         root.showFileSystem();
 
         // Get the biggest file
-        System.out.println("Getting the biggest file");
+        System.out.println("******** Getting the biggest file");
         String biggestFile = root.getBiggestFile();
         System.out.println("Biggest File: " + biggestFile);
     }
